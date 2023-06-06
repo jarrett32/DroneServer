@@ -1,0 +1,3 @@
+force_disarm_timer: 10.0
+testing: false
+record_video: false
