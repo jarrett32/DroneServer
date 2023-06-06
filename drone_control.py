@@ -50,6 +50,7 @@ class DroneControl:
 
         if cmd == 'arm':
             if params[0] == 'throttle':
+                self.force_land['value'] = False
                 self.vehicle.mode = VehicleMode("GUIDED")
                 while not self.vehicle.is_armable:
                     print("Waiting for vehicle to become armable.")
