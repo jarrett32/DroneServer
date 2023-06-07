@@ -12,7 +12,8 @@ def close_vehicle():
     print("Close vehicle connection")
     drone_control.close_vehicle()
 
-atexit.register(close_vehicle)
+if drone_control.vehicle:
+    atexit.register(close_vehicle)
 
 @app.route('/send-data', methods=['POST'])
 def send_command():
@@ -33,7 +34,10 @@ def send_command():
 
 if __name__ == '__main__':
     print("Starting server...")
-    print("Testing: ", "ENABLED" if config["testing"] else "DISABLED")
-    drone_control.connect() # Recieve heartbeat from Drone via serial cable
+    if config["testing"]:
+        print("Testing: ENABLED")
+    else:
+        print("Testing: DISABLED")
+        drone_control.connect() # Recieve heartbeat from Drone via serial cable
     app.run(host='0.0.0.0', port=5000)
 
